@@ -1,0 +1,137 @@
+@import models.entities.Contact
+@import play.api.data._
+@import play.api.mvc._
+
+@import controllers.SearchForm.SearchData
+@import controllers.CreateForm.CreateData
+
+@(  contacts: Seq[Contact],
+    createForm: Form[CreateData],
+    searchForm: Form[SearchData],
+    createFunc: Call
+)(implicit request: MessagesRequestHeader)
+
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Телефонный справочник</title>
+
+    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/bootstrap.min.css" defer/>
+
+    <script type="text/javascript" src="/assets/javascripts/jquery.min.js" defer></script>
+    <script type="text/javascript" src="/assets/javascripts/bootstrap.min.js"  defer></script>
+
+    <script type="text/javascript" src="/assets/javascripts/script.js" defer></script>
+</head>
+<body>
+
+<div class="jumbotron">
+    <div class="container mb-4">
+        <h3 class="text-center">Телефонный справочник</h3>
+        <section id="search">
+        <div class="card border-dark mb-4">
+            <div class="card-body pb-0">
+                <div class="row">
+                    <form class="form-inline" method="get">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <label for="searchNumber" class="mx-sm-3">Искать по номеру</label>
+                            <input type="text" id="searchNumber" name="phoneSubstring" class="form-control" placeholder="Например, 79780002255">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Найти</button>
+                    </form>
+
+                    <form class="form-inline" method="get">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <label for="searchName2" class="mx-sm-3">Искать по имени</label>
+                            <input type="text" name="nameSubstring" class="form-control" id="searchName2" placeholder="Например, Герхард">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Найти</button>
+                    </form>
+
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                <button class="btn btn-danger" onclick="window.history.back()">
+                    Отменить
+                </button>
+            </div>
+        </div>
+        </section>
+
+        <button class="btn btn-primary addContact">
+            Добавить контакт
+        </button>
+
+        <section>
+            <div id="contactsList" class="container pt-3 ">
+                <div class="row border-bottom border-dark">
+                    <div class="col-4 ">Имя</div>
+                    <div class="col-4 ">Номер</div>
+                    <div class="col-2">Редактировать</div>
+                    <div class="col-2">Удалить</div>
+                </div>
+
+                @for(contact <- contacts) {
+                    <div class="contact row border-bottom border-dark py-3" data-contactId="@contact.id">
+
+                        <div class="col-4 " data-name="name" data-type="field">
+                            @contact.name
+                        </div>
+
+                        <div class="col-4 phone" data-name="phone" data-type="field">
+                            @contact.number
+                        </div>
+
+                        <div class="col-2">
+                            <a href="#" class="editContact "><button>edit</button></a>
+                        </div>
+
+                        <div class="col-2">
+                        <a class="deleteContact" href="delete/@contact.id"><button>delete</button></a>
+                    </div>
+
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+
+    <footer class="text-center">
+        <div class="container">
+            Код на github <a href="https://github.com/TjavaistT/phonebook" target="_blank">Телефонная книга(Java)</a>
+        </div>
+    </footer>
+
+</div>
+
+<div id="addRow" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-content modal-form">
+        @helper.form(createFunc){
+            <div class="modal-header">
+                <h4 class="modal-title" ></h4>
+                <button type="button" class="close" data-dismiss="modal" onclick="closeNoty()">×</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="id" name="id">
+
+                <div class="form-group">
+                    @helper.inputText(createForm("name"), Symbol("placeholder") -> "Имя", Symbol("_id") -> "name", Symbol("class") -> "form-control", Symbol("_label") -> "Имя", Symbol("_showConstraints") -> false)
+                </div>
+                <div class="form-group">
+                    @helper.inputText(createForm("phone"),  Symbol("placeholder") -> "Номер", Symbol("_id") -> "phone", Symbol("class") -> "form-control", Symbol("_label") -> "Номер", Symbol("_showConstraints") -> false)
+                </div>
+
+            </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Отменить
+            </button>
+            <button type="submit" class="btn btn-primary">
+                Сохранить
+            </button>
+        </div>
+        }
+
+    </div>
+</div>
+</body></html>

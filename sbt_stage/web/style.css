@@ -1,0 +1,57 @@
+.DeleteButton{
+    width: 150px;
+    height: 40px;
+    color: white;
+
+    background-color: #7f7c7f;
+    border-radius: 5px;
+    position: relative;
+    bottom: 10px;
+}
+.EditButton{
+    width: 150px;
+    height: 40px;
+    color: white;
+    background-color: #f1cabc;
+    border-radius: 5px;
+    position: relative;
+    bottom: 10px;
+}
+.CreateButton{
+    width: 150px;
+    height: 40px;
+    color: white;
+    background-color:  #ad89b0;
+    border-radius: 5px;
+    position: fixed;
+    bottom: 10px;
+    right: 5%;
+}
+.content {
+    text-align: center;
+}
+.item{
+    margin-left: 35%;
+}
+body {
+    background-image: url('images/background.png');
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 65% 110%;
+    background-attachment: fixed;
+}
+h1 {
+    color:  #ad89b0;
+}
+.inputField {
+    border-radius: 50px;
+    border-color: #ad89b0;
+    border-style: wave;
+}
+.searchForm {
+    right: 5%;
+    position: fixed;
+}
+a {
+  color: #ad89b0;
+}
