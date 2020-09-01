@@ -1,10 +1,8 @@
 GET         /                       controllers.HtmlController.index
 
-+ nocsrf
 POST        /                       controllers.HtmlController.addContact
 
-+nocsrf
-POST         /:contact_id            controllers.HtmlController.editContact(contact_id: String)
+POST         /:contact_id           controllers.HtmlController.editContact(contact_id: String)
 
 GET         /delete/:contact_id     controllers.HtmlController.deleteContact(contact_id: String)
 

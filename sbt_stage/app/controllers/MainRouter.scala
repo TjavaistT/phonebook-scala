@@ -9,11 +9,16 @@ import play.api.routing.sird._
 class MainRouter @Inject()(htmlController: HtmlController, restController: RestContactsController) extends SimpleRouter {
 
   override def routes: Routes = {
-    case GET(p"/") => htmlController.index
+
+    case POST(p"/") => htmlController.addContact
+
+    case POST(p"/$contact_id") => htmlController.editContact(contact_id)
+
+    case GET(p"/delete/$contact_id") => htmlController.deleteContact(contact_id)
 
     case GET(p"/phones") => restController.getAll
 
-    case GET(p"/phones/searchBySubstr") => restController.showFiltered()
+    case GET(p"/phones/searchBySubstr") => restController.showFiltered
 
     case POST(p"/phones/createNewPhone") => restController.add
 

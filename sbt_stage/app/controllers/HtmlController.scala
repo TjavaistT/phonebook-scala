@@ -14,9 +14,6 @@ import scala.concurrent.ExecutionContext.global
 import scala.concurrent.duration.DurationInt
 import scala.util.{Failure, Success}
 
-//class HtmlController @Inject()(contactService: IContactsService[Contact], cc: ControllerComponents)
-//                        (implicit ec: ExecutionContext, mc: MessagesRequestHeader)
-//  extends AbstractController(cc)
 
 class HtmlController @Inject()(contactService: ContactsService,
                                cComponents: MessagesControllerComponents
@@ -25,7 +22,7 @@ class HtmlController @Inject()(contactService: ContactsService,
 {
   private val createUrl = routes.HtmlController.addContact()
 
-  def index = Action.async { implicit request =>
+  def index = Action.async { implicit request: MessagesRequest[AnyContent] =>
 
     val nameSubstr = request.getQueryString("nameSubstring").getOrElse("")
     val phoneSubstr = request.getQueryString("phoneSubstring").getOrElse("")
@@ -35,7 +32,7 @@ class HtmlController @Inject()(contactService: ContactsService,
     maybeContacts.map(contacts => Ok(views.html.index(contacts, createForm, searchForm, createUrl)))
   }
 
-  def addContact: Action[AnyContent] = Action { implicit request: MessagesRequest[AnyContent] =>
+  def addContact: Action[AnyContent] = Action { implicit request =>
 
     val errorFunction = { formWithError: Form[CreateData] =>
       BadRequest(views.html.index(Nil, formWithError, searchForm, createUrl))
@@ -43,13 +40,13 @@ class HtmlController @Inject()(contactService: ContactsService,
 
     val successFunction = { data: CreateData =>
       contactService.create(ContactForm(data.name, data.phone))
-      Redirect(routes.HtmlController.index()).flashing("info" -> "contact add")
+      Redirect(routes.HtmlController.index())
     }
 
     createForm.bindFromRequest.fold(errorFunction, successFunction)
   }
 
-  def editContact(contact_id: String) = Action { implicit request: MessagesRequest[AnyContent] =>
+  def editContact(contact_id: String) = Action { implicit request =>
     val errorFunction = {formWithError: Form[CreateData] =>
       BadRequest("Error in Edit Form!")
     }
