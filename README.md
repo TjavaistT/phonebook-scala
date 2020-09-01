@@ -98,8 +98,11 @@ $ curl http://localhost:9000/phone/9d523862-8773-4c0d-bafc-c6d4a51a89b6 -X DELET
 
 ### Описание_web_интерфейса
 Одностраничный web интерфейс с списком контактов, формами поиска, добавления, редактирования и удаления контактов
+![alt-текст][phonebook-interface]
 
 ### Используемые технологии
 - Docker
 - Postgress
 - sbt, PlayFramework, Slick, Akka
+
+[phonebook-interface]: https://github.com/TjavaistT/phonebook-scala/blob/master/phonebook-scala interface.png "Интерфейс приложения"

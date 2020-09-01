@@ -12,4 +12,6 @@ GET         /delete/:contact_id     controllers.HtmlController.deleteContact(con
 ->          /                       controllers.MainRouter
 
 # Map static resources from the /public folder to the /assets URL path
-GET  /assets/*file        controllers.Assets.at(path="/public", file)
+GET         /assets/*file        controllers.Assets.at(path="/public", file)
+
+GET         /favicon.ico          controllers.Assets.at(path="/public/images", file="phonebook.png")
