@@ -105,4 +105,4 @@ $ curl http://localhost:9000/phone/9d523862-8773-4c0d-bafc-c6d4a51a89b6 -X DELET
 - Postgress
 - sbt, PlayFramework, Slick, Akka
 
-[phonebook-interface]: https://github.com/TjavaistT/phonebook-scala/blob/master/phonebook-scala interface.png "Интерфейс приложения"
+[phonebook-interface]: https://github.com/TjavaistT/phonebook-scala/blob/master/phonebook-scala%20interface.png "Интерфейс приложения"
