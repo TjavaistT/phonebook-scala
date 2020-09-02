@@ -1,15 +1,27 @@
+#HTML INTERFACE
 GET         /                       controllers.HtmlController.index
 
 POST        /                       controllers.HtmlController.addContact
 
-POST         /:contact_id           controllers.HtmlController.editContact(contact_id: String)
+POST         /:contact_id           controllers.HtmlController.editContact(contact_id)
 
-GET         /delete/:contact_id     controllers.HtmlController.deleteContact(contact_id: String)
+GET         /delete/:contact_id     controllers.HtmlController.deleteContact(contact_id)
 
 
-->          /                       controllers.MainRouter
+#REST API
+GET         /phones                 controllers.RestContactsController.getAll
+
+GET         /phones/searchBySubstr  controllers.RestContactsController.showFiltered
+
+POST        /phones/createNewPhone  controllers.RestContactsController.add
+
+GET         /phone/:id              controllers.RestContactsController.get(id)
+
+POST        /phone/:id              controllers.RestContactsController.update(id)
+
+DELETE      /phone/:id              controllers.RestContactsController.delete(id)
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file        controllers.Assets.at(path="/public", file)
+GET         /assets/*file           controllers.Assets.at(path="/public", file)
 
-GET         /favicon.ico          controllers.Assets.at(path="/public/images", file="phonebook.png")
+GET         /favicon.ico            controllers.Assets.at(path="/public/images", file="phonebook.png")

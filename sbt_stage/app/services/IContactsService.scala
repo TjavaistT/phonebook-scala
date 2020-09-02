@@ -3,7 +3,7 @@ package services
 import scala.concurrent.Future
 
 trait IContactsService[A] {
-  def create(contact: ContactForm): Future[A]
+  def create(contact: ContactData): Future[A]
 
   def update(id: String, name: String, number: Long): Future[A]
 

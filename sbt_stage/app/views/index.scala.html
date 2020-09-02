@@ -2,12 +2,11 @@
 @import play.api.data._
 @import play.api.mvc._
 
-@import controllers.SearchForm.SearchData
-@import controllers.CreateForm.CreateData
+@import services._
 
 @(  contacts: Seq[Contact],
-    createForm: Form[CreateData],
-    searchForm: Form[SearchData],
+    createForm: Form[ContactData],
+    searchForm: Form[ContactData],
     createFunc: Call
 )(implicit request: MessagesRequestHeader)
 
@@ -49,19 +48,21 @@
 
                 </div>
             </div>
-            <div class="card-footer text-right">
-                <button class="btn btn-danger" onclick="window.history.back()">
-                    Отменить
-                </button>
-            </div>
+
         </div>
         </section>
 
-        <button class="btn btn-primary addContact">
-            Добавить контакт
-        </button>
+        <div class="text-center pb-3">
+            <button class="btn btn-danger" onclick="window.history.back()">
+                Отменить последнее действие
+            </button>
+        </div>
+
 
         <section>
+            <button class="btn btn-primary addContact">
+                Добавить контакт
+            </button>
             <div id="contactsList" class="container pt-3 ">
                 <div class="row border-bottom border-dark">
                     <div class="col-4 ">Имя</div>

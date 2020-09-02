@@ -1,12 +1,12 @@
 package controllers
 
-import controllers.CreateForm.{CreateData, createForm}
-import controllers.SearchForm.searchForm
+import services._
+import services.CreateForm.createForm
+import services.SearchForm.searchForm
 import javax.inject.Inject
 import models.entities.Contact
 import play.api.data.Form
 import play.api.mvc._
-import services._
 import scala.language.postfixOps
 
 import scala.concurrent.{CanAwait, ExecutionContext}
@@ -34,12 +34,12 @@ class HtmlController @Inject()(contactService: ContactsService,
 
   def addContact: Action[AnyContent] = Action { implicit request =>
 
-    val errorFunction = { formWithError: Form[CreateData] =>
+    val errorFunction = { formWithError: Form[ContactData] =>
       BadRequest(views.html.index(Nil, formWithError, searchForm, createUrl))
     }
 
-    val successFunction = { data: CreateData =>
-      contactService.create(ContactForm(data.name, data.phone))
+    val successFunction = { data: ContactData =>
+      contactService.create(ContactData(data.name, data.phone))
       Redirect(routes.HtmlController.index())
     }
 
@@ -47,11 +47,11 @@ class HtmlController @Inject()(contactService: ContactsService,
   }
 
   def editContact(contact_id: String) = Action { implicit request =>
-    val errorFunction = {formWithError: Form[CreateData] =>
+    val errorFunction = {formWithError: Form[ContactData] =>
       BadRequest("Error in Edit Form!")
     }
 
-    val successFunction = { data: CreateData =>
+    val successFunction = { data: ContactData =>
       contactService.update(contact_id, data.name, data.phone)
       Redirect(routes.HtmlController.index()).flashing("info" -> "contact update")
     }

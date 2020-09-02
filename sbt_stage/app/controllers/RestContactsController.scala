@@ -55,7 +55,7 @@ class RestContactsController @Inject()(contactsService: ContactsService,
         Future.successful(BadRequest("Error in update form!"))
       },
       contactData => {
-        contactsService.update(id, contactData.name, contactData.phoneNumber).map { result =>
+        contactsService.update(id, contactData.name, contactData.phone).map { result =>
           Created(Json.toJson(result))
         }
       }
@@ -81,14 +81,14 @@ class RestContactsController @Inject()(contactsService: ContactsService,
 
 object RestContactsController{
 
-  val createForm: Form[ContactForm] = {
+  val createForm: Form[ContactData] = {
     import play.api.data.Forms._
 
     Form(
       mapping(
         "name" -> nonEmptyText,
         "phoneNumber" -> longNumber
-      )(ContactForm.apply)(ContactForm.unapply)
+      )(ContactData.apply)(ContactData.unapply)
     )
   }
 }

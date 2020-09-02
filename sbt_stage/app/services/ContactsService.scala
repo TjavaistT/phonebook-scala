@@ -13,9 +13,9 @@ import scala.concurrent.Future
 class ContactsService @Inject()(contactsRepository: IContactsRepository[Contact]) extends IContactsService[Contact]
 {
 
-  def create(contactForm: ContactForm) = Future{
+  def create(contactForm: ContactData) = Future{
 
-    val contact = Contact(randomUUID().toString, contactForm.name, contactForm.phoneNumber)
+    val contact = Contact(randomUUID().toString, contactForm.name, contactForm.phone)
 
     contactsRepository.createOrUpdate(contact)
 
